@@ -14,6 +14,7 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     /* Biarkan halaman bisa discroll */
     html, body {
       min-height: 100vh;
@@ -237,7 +238,7 @@
   min-height: 100vh;
 }
 .box-putih-kecil {
-  background: rgba(255, 255, 255, 0.95); /* Putih transparan */
+  background: rgba(255, 255, 255, 0.97); /* Putih transparan */
   background-size: cover;
   border: 3px solid #f3a302; 
   border-radius: 999px;
@@ -322,66 +323,11 @@
   margin: 20px;
   color: #f3a302; 
 }
-
+   
 /*HITUNG MUNDUR*/
 .countdown-grid {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-/*Hitung mUndur*/
-.penutup-section {
-  background-image: url('background-penutup.webp');
-  padding: 60px 20px;
-  text-align: center;
-  background-size: contain;
-  background-position: top center;
-  margin-bottom: 0px;
-  min-height: 100vh;
-}
-
-.penutup-box {
-  max-width: 700px;
-  margin: 0 auto;
-  background: #fefaf6;
-  padding: 40px 25px;
-  border-radius: 25px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-}
-
-.ucapan {
-  font-family: 'Inter', sans-serif;
-  font-size: 18px;
-  color: #5a4e4d;
-  margin-bottom: 10px;
-  line-height: 1.6;
-}
-
-.nama-penutup {
-  font-family: Georgia, serif;
-  font-size: 38px;
-  color: #b53f74;
-  margin-top: 30px;
-}
-#ucapan {
-  background-image: url('beground-penutup.webp');
-  background-size: cover;
-  background-position: center;
-  padding: 80px 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.judul-acara {
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-}
-
-.countdown-grid {
-  display: flex;
+ background: rgba(255, 255, 255, 0.97); /* Putih transparan */
   justify-content: space-between;
   gap: 10px;
   flex-wrap: nowrap;
@@ -391,8 +337,30 @@
   margin-bottom: 20px;
 }
 
+/* Animasi untuk .ucapan-box: slide in from left */
+.ucapan1-box {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.6s ease-out;
+}
+.ucapan1-box {
+  background: rgba(255, 255, 255, 0.97); /* Putih transparan */
+  background-size: cover;
+  padding: 40px 30px 40px;
+  max-width: 500px;
+  text-align: center;
+  border-radius: 40px 40px 80px 80px; /* bagian bawah melengkung */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  position: relative;
+}
+.ucapan-box.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Animasi countdown-item: fade in + slide up */
 .countdown-item {
-  background:#555;
+  background: #555;
   border-radius: 20px;
   width: 80px;
   height: 80px;
@@ -401,20 +369,35 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
 }
+
+.countdown-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay berurutan tiap item */
+.countdown-item:nth-child(1) { transition-delay: 0.1s; }
+.countdown-item:nth-child(2) { transition-delay: 0.2s; }
+.countdown-item:nth-child(3) { transition-delay: 0.3s; }
+.countdown-item:nth-child(4) { transition-delay: 0.4s; }
 
 .count-number {
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 1px;
-  color:  #ffffff;
+  color: #ffffff;
 }
 
 .count-label {
   font-size: 14px;
   color: #ffffff;
 }
-
+   
 /* DATE*/
   .acara {
   background: #7b1f26 url('beground-date.webp') no-repeat center center;
@@ -428,7 +411,7 @@
   z-index: 1;
 }
 .box-acara {
-  background: #fef8f2 url('beground-date-tengah.webp') no-repeat center;
+  background: rgba(255, 255, 255, 0.97); /* Putih transparan */
   background-size: cover;
   border: 3px solid #f3a302; 
   border-radius: 999px;
@@ -527,6 +510,27 @@
   z-index: -1;
   pointer-events: none;
 }
+/* Default: sembunyi dan posisi awal */
+.slide-in-left,
+.slide-in-right {
+  opacity: 0;
+  transition: all 0.8s ease-out;
+}
+
+.slide-in-left {
+  transform: translateX(-80px);
+}
+.slide-in-right {
+  transform: translateX(80px);
+}
+
+/* Saat masuk layar */
+.slide-in-left.show,
+.slide-in-right.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /*MAPAS*/
 .tombol-maps {
   text-align: center;
@@ -708,14 +712,14 @@
 }
 
 /* RSVP SECTION */
-    #rsvp {
-  background: #ffffff;
+#rsvp {
+  color: #fff;
   padding: 40px 24px;
   margin: 40px auto;
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  max-width: 480px; /* Lebih ramping dari 600px */
-  text-align: center; /* 🎯 ini bikin semua isi center */
+  max-width: 480px;
+  text-align: center;
 }
 
 #rsvp h2 {
@@ -726,11 +730,9 @@
   font-family: 'Great Vibes', cursive;
 }
 
+/* Sembunyikan label */
 #rsvp label {
-  font-weight: bold;
-  display: block;
-  margin: 8px 0 4px;
-  text-align: center; /* kalau mau label tetap rata kiri */
+  display: none;
 }
 
 #rsvp input,
@@ -745,10 +747,23 @@
   box-sizing: border-box;
 }
 
+/* Placeholder style */
+#rsvp input::placeholder,
+#rsvp textarea::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+/* Placeholder untuk select */
+#rsvp select:invalid {
+  color: #999;
+  font-style: italic;
+}
+
 #rsvp button {
   width: 100%;
   padding: 14px;
-  background: green;
+  background: #f3a302; 
   color: white;
   border: none;
   border-radius: 10px;
@@ -758,13 +773,15 @@
 }
 
 #rsvp button:hover {
-  background: darkgreen;
+  background: #f3a302; ;
 }
+
 .form-wrapper {
-  max-width: 200px;     /* 🎯 lebar maksimum kolom input */
-  margin: 0 auto;       /* Biar kolomnya di tengah */
-  text-align: center;     /* Label tetap rata kiri */
+  max-width: 200px;
+  margin: 0 auto;
+  text-align: center;
 }
+
 
    
 /* Animasi Umum */
@@ -838,48 +855,6 @@
   transform: none;
 }
    
-/*ANIMASI BUNGA*/
-.bunga-muncul {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 4;
-    pointer-events: none;
-    opacity: 0.9;
-  }
-
-  .bunga-muncul img {
-    width: 120px;
-    animation: goyangAngin 4s ease-in-out infinite;
-  }
-
-  .bunga-muncul.kanan {
-    right: 0;
-  }
-
-  .bunga-muncul.kiri {
-    left: 0;
-  }
-
-  @keyframes goyangAngin {
-  0%   { transform: rotate(0deg) translateY(0); }
-  25%  { transform: rotate(3deg) translateY(-4px); }
-  50%  { transform: rotate(-2deg) translateY(3px); }
-  75%  { transform: rotate(2deg) translateY(-2px); }
-  100% { transform: rotate(0deg) translateY(0); }
-  20%  { transform: rotate(10deg) translateY(-10px); }
-  50%  { transform: rotate(-8deg) translateY(6px); }
-  80%  { transform: rotate(6deg) translateY(-6px); }
-  100% { transform: rotate(0deg) translateY(0); }
-
-    0%   { transform: rotate(0deg) translateY(0); }
-    25%  { transform: rotate(6deg) translateY(-6px); }
-    50%  { transform: rotate(-5deg) translateY(4px); }
-    75%  { transform: rotate(4deg) translateY(-4px); }
-    100% { transform: rotate(0deg) translateY(0); }
-  }
-
-
 
 </style>
 </head>
@@ -897,16 +872,6 @@
   <div class="particle-overlay"></div>
 
   <div class="black-overlay"></div>
-
-<!-- 🌸 Bunga Kanan -->
-<div class="bunga-muncul kanan" data-aos="fade-left" data-aos-duration="1200">
-  <img src="bunga-kanan.webp" alt="Bunga Kanan" />
-</div>
-
-<!-- 🌸 Bunga Kiri -->
-<div class="bunga-muncul kiri" data-aos="fade-right" data-aos-duration="1200">
-  <img src="bunga-kiri.webp" alt="Bunga Kiri" />
-</div>
 
 
   <!-- Konten nama pengantin -->
@@ -976,7 +941,7 @@
 
 <!-- Countdown Section -->
 <section id="ucapan">
-  <div class="ucapan-box">
+  <div class="ucapan1-box">
     <div class="countdown-grid">
       <div class="countdown-item">
         <div class="count-number" id="hari">00</div>
@@ -1006,7 +971,7 @@
   <div class="bg-static"></div> <!-- 🎯 background diam hanya untuk section ini -->
 
   <div class="box-acara fade-in-up">
-    <div class="bingkai-emas">
+    <div class="bingkai-emas slide-in-right">
       <p class="judul">Akad Nikah</p>
       <p class="orang-tua">SELASA</p>
       <p class="tanggal">07</p>
@@ -1029,7 +994,7 @@
   <div class="bg-static"></div>
 
   <div class="box-acara fade-in-up">
-    <div class="bingkai-emas">
+    <div class="bingkai-emas slide-in-left">
       <p class="judul">Resepsi</p>
       <p class="orang-tua">RABU</p>
       <p class="tanggal">08</p>
@@ -1086,21 +1051,15 @@
 <section id="rsvp" data-aos="fade-up">
   <h2>Wishes</h2>
   <form id="rsvpForm">
-    <div class="form-wrapper">
-    <label for="nama">Nama:</label>
-    <input type="text" id="nama" required />
-
-    <label for="ucapan">Ucapan:</label>
-    <textarea id="pesanUcapan" required></textarea>
-
-    <label for="kehadiran">Konfirmasi Kehadiran:</label>
-    <select id="kehadiran" required>
-      <option value="">-- Pilih --</option>
-      <option value="Hadir">Hadir</option>
-      <option value="Tidak Hadir">Tidak Hadir</option>
-    </select>
-
-    <button type="submit">Kirim</button>
+    <div class="form-wrapper" data-aos="fade-up" data-aos-delay="200">
+      <input type="text" id="nama" placeholder="Tulis namamu di sini..." required />
+      <textarea id="pesanUcapan" placeholder="Berikan ucapan atau doa..." required></textarea>
+      <select id="kehadiran" required>
+        <option value="" disabled selected hidden>Pilih status kehadiran...</option>
+        <option value="Hadir">Hadir</option>
+        <option value="Tidak Hadir">Tidak Hadir</option>
+      </select>
+      <button type="submit">Kirim</button>
     </div>
   </form>
 </section>
@@ -1152,13 +1111,20 @@
           return;
         }
 
-        const nomorWhatsApp = "6285706889273";
+        const nomorWhatsApp = "6288805417181";
         const pesan = `Halo, saya *${nama}*\nUcapan: ${ucapan}\nKehadiran: *${kehadiran}*`;
 
         const url = `https://wa.me/${nomorWhatsApp}?text=${encodeURIComponent(pesan)}`;
         window.open(url, "_blank");
       });
     }
+  });
+
+//ANIMASI SRVP
+  AOS.init({
+    once: false, // animasi bisa aktif lagi saat scroll ke atas
+    duration: 800,
+    easing: 'ease-out',
   });
 
 //EFEK BUTIRAN//
@@ -1176,7 +1142,24 @@ document.addEventListener('DOMContentLoaded', function () {
     container.appendChild(dot);
   }
 });
-   
+
+// BINGKAI EMAS
+document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      } else {
+        entry.target.classList.remove("show"); // Hapus jika ingin 1x animasi saja
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => {
+    observer.observe(el);
+  });
+});
+
 // ANIMASI SCROLL MASUK
 const animatedElements = [
   ...document.querySelectorAll('.pengantin'),
@@ -1226,6 +1209,25 @@ window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => document.getElementById('hero-tanggal')?.classList.add('fade-in-up', 'show'), 1400);
 });
 
+// WAKTU MUNDUR ANIMASI 
+document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      } else {
+        entry.target.classList.remove("show"); // Hapus ini jika animasi cukup 1x
+      }
+    });
+  }, { threshold: 0.2 });
+
+  const ucapan1Box = document.querySelector('.ucapan1-box');
+  const countdownItems = document.querySelectorAll('.countdown-item');
+
+  if (ucapan1Box) observer.observe(ucapan1Box);
+  countdownItems.forEach(item => observer.observe(item));
+});
+   
 // MUSIK LATAR DAN COUNTDOWN
 const audio = document.getElementById('bg-music');
 
