@@ -1244,6 +1244,42 @@ setInterval(() => {
   document.getElementById("detik").innerText = detik.toString().padStart(2, '0');
 }, 1000);
 
+// MUSIK
+const audio = document.getElementById('bg-music');
+
+  function playLaguJikaDiizinkan() {
+    const play = localStorage.getItem('playMusik');
+    if (play === 'yes') {
+      audio.play().catch(() => {});
+    }
+  }
+
+  let sudahMain = false;
+  window.addEventListener('scroll', () => {
+    if (!sudahMain) {
+      playLaguJikaDiizinkan();
+      sudahMain = true;
+    }
+  });
+
+  window.addEventListener('focus', () => {
+    if (!document.hidden) {
+      playLaguJikaDiizinkan();
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      playLaguJikaDiizinkan();
+    } else {
+      audio.pause();
+    }
+  });
+
+  window.addEventListener('blur', () => {
+    audio.pause();
+  });
+   
 // HERO SECTION ANIMASI
 window.addEventListener('load', () => {
   const heroTitle = document.getElementById('hero-title');
